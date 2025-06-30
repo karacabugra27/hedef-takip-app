@@ -3,7 +3,10 @@ import axios from "axios";
 import "./App.css";
 
 function TaskApp() {
+  //taskları tut, titleları tut ,taskları getir, task ekle, ilk sayfa geldiğinde tasklar gelsin.
+
   const [tasks, setTasks] = useState([]);
+
   const [title, setTitle] = useState("");
 
   const fetchTasks = async () => {
@@ -14,6 +17,11 @@ function TaskApp() {
   const addTask = async () => {
     await axios.post("http://localhost:8080/api/tasks", { title });
     setTitle("");
+    fetchTasks();
+  };
+
+  const deleteTask = async (id) => {
+    await axios.delete(`http://localhost:8080/api/tasks/${id}`);
     fetchTasks();
   };
 
@@ -43,7 +51,16 @@ function TaskApp() {
       <div>
         <ul>
           {tasks.map((task) => (
-            <li key={task.id}> ✅ {task.title}</li>
+            <li key={task.id}>
+              {" "}
+              ✅ {task.title}
+              <button
+                className="button-delete"
+                onClick={() => {
+                  deleteTask(task.id);
+                }}
+              >X</button>
+            </li>
           ))}
         </ul>
       </div>

@@ -35,3 +35,15 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.button-delete {
+  height: 20px;
+  width: 23px;
+  background-color: red;
+  color: white;
+  border: 2px solid wheat;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: xx-small;
+}

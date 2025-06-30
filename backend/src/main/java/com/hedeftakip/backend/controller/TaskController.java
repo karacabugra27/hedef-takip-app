@@ -1,6 +1,7 @@
 package com.hedeftakip.backend.controller;
 
 import com.hedeftakip.backend.entity.Task;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.hedeftakip.backend.repository.TaskRepository;
 
@@ -24,5 +25,16 @@ public class TaskController {
     @PostMapping
     public Task create(@RequestBody Task task){
         return taskRepository.save(task);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        if(taskRepository.existsById(id)){
+            taskRepository.deleteById(id);
+            return ResponseEntity.noContent().build(); //204 no content
+        } else {
+            return ResponseEntity.notFound().build(); // 404 not found
+        }
     }
 }
