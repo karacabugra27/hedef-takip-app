@@ -25,6 +25,12 @@ function TaskApp() {
     fetchTasks();
   };
 
+  const toggleCompleted = async (task) => {
+    const updatedTask = { ...task, completed: !task.completed };
+    await axios.put(`http://localhost:8080/api/tasks/${task.id}`, updatedTask);
+    fetchTasks();
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -39,7 +45,7 @@ function TaskApp() {
         onChange={(e) => {
           setTitle(e.target.value);
         }}
-        placeholder="Görev Yaz"
+        placeholder="Hedef Yaz"
       />
 
       <div className="button-div">
@@ -49,17 +55,30 @@ function TaskApp() {
       </div>
 
       <div>
-        <ul>
+        <ul className="ul">
           {tasks.map((task) => (
-            <li key={task.id}>
-              {" "}
-              ✅ {task.title}
+            <li
+              key={task.id}
+              style={{
+                textDecoration: task.completed ? "line-through" : "none",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => {
+                  toggleCompleted(task);
+                }}
+              />
+              {task.title}
               <button
                 className="button-delete"
                 onClick={() => {
                   deleteTask(task.id);
                 }}
-              >X</button>
+              >
+                X
+              </button>
             </li>
           ))}
         </ul>

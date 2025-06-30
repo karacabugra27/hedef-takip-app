@@ -26,4 +26,6 @@ public class Task {
 
     private LocalDate createdAt = LocalDate.now();
 
+    private boolean completed = false;
+
 }
