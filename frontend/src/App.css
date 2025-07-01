@@ -28,7 +28,7 @@
 
 .button {
   height: 30px;
-  width: 50px;
+  width: auto;
   background-color: chocolate;
   border: 2px solid wheat;
   font-size: medium;
@@ -54,3 +54,34 @@
   font-size: large;
 }
 
+.task-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.task-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 20px;
+}
+
+.big-title {
+  font-size: 20px;
+  color: teal;
+}
+
+.button-edit {
+  height: 20px;
+  width: 23px;
+  background-color: turquoise;
+  color: black;
+  border: 2px solid wheat;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: xx-small;
+}
