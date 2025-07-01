@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import TaskList from "./components/TaskList";
+import TaskInput from "./components/TaskInput";
 
 function TaskApp() {
   //taskları tut, titleları tut ,taskları getir, task ekle, ilk sayfa geldiğinde tasklar gelsin.
@@ -49,7 +51,7 @@ function TaskApp() {
     setTitle(task.title);
   };
 
-  const updateTask = async (task) => {
+  const updateTask = async () => {
     if (!editing) return;
     const newUpdatedTask = { ...editing, title }; //editlenecek task'in title verisini getir.
     await axios.put(
@@ -75,120 +77,31 @@ function TaskApp() {
   return (
     <div className="main-div">
       <h2 className="title-font">Hedef Takip</h2>
-
-      <input
-        className="input"
-        value={title}
-        onChange={(e) => {
-          setTitle(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            if (editing) {
-              updateTask();
-            } else {
-              addTask();
-            }
-          }
-        }}
-        placeholder="Hedef Yaz"
+      <TaskInput
+        title={title}
+        setTitle={setTitle}
+        editing={editing}
+        addTask={addTask}
+        updateTask={updateTask}
       />
-
-      <div className="button-div">
-        <button
-          className="button"
-          onClick={() => {
-            if (editing) {
-              updateTask();
-            } else {
-              addTask();
-            }
-          }}
-        >
-          {editing ? "Güncelle" : "Ekle"}
-        </button>
-      </div>
-
       <div className="task-div">
         <div className="task-group">
           <h2 className="big-title">Yapılacak Görevlerin</h2>
-          <ul className="ul">
-            {activeTask.map((task) => (
-              <li
-                key={task.id}
-                style={{
-                  textDecoration: task.completed ? "line-through" : "none",
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => {
-                    toggleCompleted(task);
-                  }}
-                />
-                {task.title +
-                  " " +
-                  new Date(task.createdAt).toLocaleTimeString()}
-                <button
-                  className="button-delete"
-                  onClick={() => {
-                    deleteTask(task.id);
-                  }}
-                >
-                  X
-                </button>
-                <button
-                  className="button-edit"
-                  onClick={() => {
-                    editTask(task);
-                  }}
-                >
-                  .
-                </button>
-              </li>
-            ))}
-          </ul>
+          <TaskList
+            tasks={activeTask}
+            deleteTask={deleteTask}
+            toggleCompleted={toggleCompleted}
+            editTask={editTask}
+          />
         </div>
         <div className="task-group">
           <h2 className="big-title">Hallettiğin Görevlerin</h2>
-          <ul className="ul">
-            {completedTask.map((task) => (
-              <li
-                key={task.id}
-                style={{
-                  textDecoration: task.completed ? "line-through" : "none",
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={() => {
-                    toggleCompleted(task);
-                  }}
-                />
-                {task.title +
-                  " " +
-                  new Date(task.createdAt).toLocaleTimeString()}
-                <button
-                  className="button-delete"
-                  onClick={() => {
-                    deleteTask(task.id);
-                  }}
-                >
-                  X
-                </button>
-                <button
-                  className="button-edit"
-                  onClick={() => {
-                    editTask(task);
-                  }}
-                >
-                  .
-                </button>
-              </li>
-            ))}
-          </ul>
+          <TaskList
+            tasks={completedTask}
+            deleteTask={deleteTask}
+            toggleCompleted={toggleCompleted}
+            editTask={editTask}
+          />
         </div>
       </div>
     </div>
