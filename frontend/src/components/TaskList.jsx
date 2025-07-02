@@ -1,9 +1,11 @@
 import React from "react";
 import TaskItem from "./TaskItem";
+import "tailwindcss";
+
 
 function TaskList({ tasks, deleteTask, toggleCompleted, editTask }) {
   return (
-    <ul className="ul">
+    <ul className="text-[#DFD0B8] font-normal">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}

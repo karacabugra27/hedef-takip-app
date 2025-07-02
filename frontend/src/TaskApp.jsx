@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "tailwindcss";
 import "./App.css";
 import TaskList from "./components/TaskList";
 import TaskInput from "./components/TaskInput";
@@ -75,8 +76,10 @@ function TaskApp() {
   }, []);
 
   return (
-    <div className="main-div">
-      <h2 className="title-font">Hedef Takip</h2>
+    <div className="flex flex-col items-center justify-center bg-[#222831] h-screen">
+      <h2 className="text-3xl font-semibold tracking-wider text-[#DFD0B8] mb-4">
+        Hedef Takip
+      </h2>
       <TaskInput
         title={title}
         setTitle={setTitle}
@@ -84,9 +87,9 @@ function TaskApp() {
         addTask={addTask}
         updateTask={updateTask}
       />
-      <div className="task-div">
-        <div className="task-group">
-          <h2 className="big-title">Yapılacak Görevlerin</h2>
+      <div className="flex flex-row justify-center items-start mt-8 gap-12">
+        <div className="flex flex-col justify-center items-center px-5">
+          <h2 className="text-xl text-[#DFD0B8]">Yapılacak Görevlerin</h2>
           <TaskList
             tasks={activeTask}
             deleteTask={deleteTask}
@@ -94,8 +97,8 @@ function TaskApp() {
             editTask={editTask}
           />
         </div>
-        <div className="task-group">
-          <h2 className="big-title">Hallettiğin Görevlerin</h2>
+        <div className="flex flex-col justify-center items-center px-5">
+          <h2 className="text-xl text-[#DFD0B8]">Hallettiğin Görevlerin</h2>
           <TaskList
             tasks={completedTask}
             deleteTask={deleteTask}
